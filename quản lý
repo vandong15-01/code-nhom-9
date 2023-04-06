@@ -1,0 +1,255 @@
+package quanlykhobongden;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+/**
+ *
+
+ */
+public class QuanLy {
+    private ArrayList<BongDen> listBongDen;
+
+    public QuanLy(){
+        listBongDen = new ArrayList<>();
+    }
+    public void themDSBongDen(BongDen x){
+        Scanner sc = new Scanner (System.in);
+        System.out.print("Nhap so luong bong den can them: ");
+        int n = Integer.parseInt(sc.nextLine()); // phân tích chuỗi đó thành kiểu interger
+        for (int i = 0; i < n; ++i){
+            System.out.println("Lan nhap thu " + (i + 1) + ":");
+            if (x instanceof DenLED){ // thể thức
+                x = new DenLED();
+                x.nhap();
+            }
+            else if (x instanceof DenCompact){
+                x = new DenCompact(); 
+                x.nhap();
+            }
+            listBongDen.add(x);
+        }
+    }
+    
+    public void menuSuaDoi(){
+        System.out.println("------------- Moi ban lua chon -----------");
+        System.out.println("1. Sua thong tin den LED.");
+        System.out.println("2. Xoa thong tin den LED.");
+        System.out.println("3. Sua thong tin den Compact.");
+        System.out.println("4. Xoa thong tin den Compact.");
+        System.out.println("----------- Chon so 0 de thoat ----------");
+    }
+    
+    public void suaBongDenLED(String maBongDen){
+        for (BongDen x : listBongDen){
+            if (x instanceof DenLED){
+                if (((DenLED) x).getMaLED().compareTo(maBongDen) == 0) {
+                    x.nhap();
+                }
+            }
+        }
+    }
+    
+    public void xoaBongDenLED(String maBongDen){
+        for (BongDen x : listBongDen){
+            if (x instanceof DenLED){
+                if (((DenLED) x).getMaLED().compareTo(maBongDen) == 0) {
+                    listBongDen.remove(x);
+                }
+            }
+        }
+    }
+    
+    public void suaBongDenCompact(String maBongDen){
+        for (BongDen x : listBongDen){
+            if (x instanceof DenCompact){
+                if (((DenCompact) x).getMaCompact().compareTo(maBongDen) == 0) {
+                    x.nhap();
+                }
+            }
+        }
+    }
+    
+    public void xoaBongDenCompact(String maBongDen){
+        for (BongDen x : listBongDen){
+            if (x instanceof DenCompact){
+                if (((DenCompact) x).getMaCompact().compareTo(maBongDen) == 0) {
+                    listBongDen.remove(x);
+                }
+            }
+        }
+    }
+    
+    public void hienThiDSBongDen(){
+        System.out.println("----------------------------------------------");
+        for (BongDen x : listBongDen) {
+            x.hien();
+        }
+    }
+    
+    public void hienThiDSDenLED(){
+        System.out.println("----------------------------------------------");
+        for (BongDen x : listBongDen){
+            if (x instanceof DenLED) {
+                ((DenLED) x).hien();
+            }
+        }
+    }
+    
+    public void hienThiDSDenCompact(){
+        System.out.println("----------------------------------------------");
+        for (BongDen x : listBongDen){
+            if (x instanceof DenCompact) {
+                ((DenCompact) x).hien();
+            }
+        }
+    }
+    
+    public void chinhSua(){
+        Scanner sc = new Scanner(System.in);
+        int n;
+        do{
+            menuSuaDoi();
+            System.out.print("Nhap vao lua chon: ");
+            n = Integer.parseInt(sc.nextLine());
+            switch(n){
+                case 1:{
+                    System.out.println("Nhap ma bong den LED can sua: ");
+                    String maBongDen = sc.nextLine();
+                    suaBongDenLED(maBongDen);
+                    break;
+                }
+                case 2:{
+                    System.out.println("Nhap ma bong den LED can xoa: ");
+                    String maBongDen = sc.nextLine();
+                    xoaBongDenLED(maBongDen);
+                    break;
+                }
+                case 3:{
+                    System.out.println("Nhap ma bong den Compact can sua: ");
+                    String maBongDen = sc.nextLine();
+                    suaBongDenCompact(maBongDen);
+                    break;
+                }
+                case 4:{
+                    System.out.println("Nhap ma bong den Compact can xoa: ");
+                    String maBongDen = sc.nextLine();
+                    xoaBongDenCompact(maBongDen);
+                    break;
+                }
+                default: 
+                    break;
+            }
+        } while(n != 0);
+    }
+    
+    public void ghiFile(String fileName){
+        try {
+            FileOutputStream fos = new FileOutputStream(fileName);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.flush();
+            oos.writeObject(listBongDen);
+            oos.close();
+            fos.close();
+            System.out.println("Luu file thanh cong, ten file: " + fileName);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+    
+    public void docFile(String fileName){
+        try{
+            listBongDen = new ArrayList<>();
+            FileInputStream fis = new FileInputStream(fileName);
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            listBongDen = (ArrayList<BongDen>) ois.readObject();
+            this.hienThiDSBongDen();
+            ois.close();
+            fis.close();
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+    }
+    
+    public void SortByDate(){
+//        Sap xep theo ngay san xuat
+        Collections.sort(listBongDen, new Comparator<BongDen>(){
+            @Override
+            public int compare(BongDen o1, BongDen o2) {
+                String[] s1 = o1.getNgaySX().split("/");
+                String[] s2 = o2.getNgaySX().split("/");
+                int ng1 = (s1[0].charAt(0) - '0') * 10 + (s1[0].charAt(1) - '0');
+                int th1 = (s1[1].charAt(0) - '0') * 10 + (s1[1].charAt(1) - '0');
+                int n1 = (s1[2].charAt(0) - '0') * 1000 + (s1[2].charAt(1) - '0') * 100 + 
+                        (s1[2].charAt(2) - '0') * 10 + (s1[2].charAt(3) - '0');
+                int ng2 = (s2[0].charAt(0) - '0') * 10 + (s2[0].charAt(1) - '0');
+                int th2 = (s2[1].charAt(0) - '0') * 10 + (s2[1].charAt(1) - '0');
+                int n2 = (s2[2].charAt(0) - '0') * 1000 + (s2[2].charAt(1) - '0') * 100 + 
+                        (s2[2].charAt(2) - '0') * 10 + (s2[2].charAt(3) - '0');
+                if (n1 != n2) return n1 - n2;
+                if (th1 != th2) return th1 - th2;
+                return ng1 - ng2;
+            }
+        });
+        System.out.println("Danh sach bong den sau khi sap xep:");
+        this.hienThiDSBongDen();
+    }
+    
+    public void SortByPrice(){
+//        Sap xep theo gia tien
+        Collections.sort(listBongDen, new Comparator<BongDen>(){
+            @Override
+            public int compare(BongDen o1, BongDen o2) {
+                if (o1.getDonGia() < o2.getDonGia()) return -1;
+                if (o1.getDonGia() == o2.getDonGia()) return 0;
+                return 1;
+            }
+        });
+        System.out.println("Danh sach bong den sau khi sap xep:");
+        this.hienThiDSBongDen();
+    }
+    
+    public void ThongKe1(){
+        for (BongDen x : listBongDen){
+            if (x.getDonGia() > 200000) {
+                x.hien();
+            }
+        }
+    }
+    
+    public void ThongKe2(){
+        for (BongDen x : listBongDen){
+            if (x instanceof DenLED){
+                if (((DenLED) x).getColor().equalsIgnoreCase("RED")) {
+                    ((DenLED) x).hien();
+                }
+            }
+        }
+    }
+    
+    public void menuChinh() {
+        System.out.println("------CHUONG TRINH QUAN LY KHO BONG DEN------");
+        System.out.println("1. Nhap danh sach bong den LED.");
+        System.out.println("2. Nhap danh sach bong den Compact.");
+        System.out.println("3. Hien thi danh sach bong den.");
+        System.out.println("4. Hien thi danh sach bong den LED.");
+        System.out.println("5. Hien thi danh sach bong den Compact.");
+        System.out.println("6. Chinh sua thong tin bong den.");
+        System.out.println("7. Luu file thong tin bong den.");
+        System.out.println("8. Doc du lieu tu file.");
+        System.out.println("9. Sap xep danh sach bong den theo ngay san xuat tang dan.");
+        System.out.println("10. Sap xep danh sach bong den theo don gia tang dan.");
+        System.out.println("11. Thong ke cac bong den co don gia lon hon 200000.");
+        System.out.println("12. Thong ke cac bong den LED co mau do.");
+        System.out.println("-----Nhan phim 0 de thoat chuong trinh, xin cam on!-----");
+    }
+}
