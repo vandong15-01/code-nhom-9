@@ -1,0 +1,97 @@
+package quanlykhobongden;
+
+import java.io.Serializable;
+import java.util.Scanner;
+
+/**
+ *
+
+ */
+public class BongDen implements Serializable{
+    private String tenBongDen;
+    private int power;
+    private int soLuong;
+    private double donGia;
+    private String ngaySX;
+    private int hanSD;
+
+    public BongDen() {
+    }
+
+    public BongDen(String tenBongDen, int power, int soLuong, double donGia, String ngaySX, int hanSD) {
+        this.tenBongDen = tenBongDen; // tham chiếu
+        this.power = power;
+        this.soLuong = soLuong;
+        this.donGia = donGia;
+        this.ngaySX = ngaySX;
+        this.hanSD = hanSD;
+    }
+
+    public String getTenBongDen() {
+        return tenBongDen;
+    }
+
+    public void setTenBongDen(String tenBongDen) {
+        this.tenBongDen = tenBongDen;
+    }
+
+    public int getPower() {
+        return power;
+    }
+
+    public void setPower(int power) {
+        this.power = power;
+    }
+
+    public int getSoLuong() {
+        return soLuong;
+    }
+
+    public void setSoLuong(int soLuong) {
+        this.soLuong = soLuong;
+    }
+
+    public double getDonGia() {
+        return donGia;
+    }
+
+    public void setDonGia(double donGia) {
+        this.donGia = donGia;
+    }
+
+    public String getNgaySX() {
+        return ngaySX;
+    }
+
+    public void setNgaySX(String ngaySX) {
+        this.ngaySX = ngaySX;
+    }
+
+    public int getHanSD() {
+        return hanSD;
+    }
+
+    public void setHanSD(int hanSD) {
+        this.hanSD = hanSD;
+    }
+    
+    public void nhap(){
+        Scanner sc = new Scanner(System.in); // lấy thông tin
+        System.out.print("Ten bong den: ");
+        this.tenBongDen = sc.nextLine();
+        System.out.print("Cong suat: ");
+        this.power = Integer.parseInt(sc.nextLine());
+        System.out.print("So luong: ");
+        this.soLuong = Integer.parseInt(sc.nextLine());
+        System.out.print("Don gia: ");
+        this.donGia = Double.parseDouble(sc.nextLine());
+        System.out.print("Ngay san xuat: ");
+        this.ngaySX = sc.nextLine();
+        System.out.print("Tuoi tho: ");
+        this.hanSD = Integer.parseInt(sc.nextLine());
+    }
+    
+    public void hien() {
+        System.out.print("{" + "tenBongDen=" + tenBongDen + ", power=" + power + ", soLuong=" + soLuong + ", donGia=" + donGia + ", ngaySX=" + ngaySX + ", hanSD=" + hanSD + ", ");
+    }
+}
