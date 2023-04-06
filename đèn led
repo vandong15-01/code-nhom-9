@@ -1,0 +1,89 @@
+package quanlykhobongden;
+
+import java.util.Scanner;
+
+/**
+ *
+ */
+public class DenLED extends BongDen{
+    private String maLED;
+    private int dienAp;
+    private int kichThuoc;
+    private String color;
+    private String chip;
+
+    public DenLED() {
+        super();  // tham chiếu đến lớp cha
+    }
+
+    public DenLED(String maLED, int dienAp, int kichThuoc, String color, String chip, String tenBongDen, int power, int soLuong, double donGia, String ngaySX, int hanSD) {
+        super(tenBongDen, power, soLuong, donGia, ngaySX, hanSD);
+        this.maLED = maLED;
+        this.dienAp = dienAp;
+        this.kichThuoc = kichThuoc;
+        this.color = color;
+        this.chip = chip;
+    }
+
+    public String getMaLED() {
+        return maLED;
+    }
+
+    public void setMaLED(String maLED) {
+        this.maLED = maLED;
+    }
+
+    public int getDienAp() {
+        return dienAp;
+    }
+
+    public void setDienAp(int dienAp) {
+        this.dienAp = dienAp;
+    }
+
+    public int getKichThuoc() {
+        return kichThuoc;
+    }
+
+    public void setKichThuoc(int kichThuoc) {
+        this.kichThuoc = kichThuoc;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public String getChip() {
+        return chip;
+    }
+
+    public void setChip(String chip) {
+        this.chip = chip;
+    }
+
+    @Override  // định nghĩa lại class con
+    public void nhap() {
+        Scanner sc = new Scanner (System.in);
+        super.nhap();
+        System.out.print("Ma den LED: ");
+        this.maLED = sc.nextLine();
+        System.out.print("Dien ap: ");
+        this.dienAp = Integer.parseInt(sc.nextLine());
+        System.out.print("Kich thuoc: ");
+        this.kichThuoc = Integer.parseInt(sc.nextLine());
+        System.out.print("Mau sac: ");
+        this.color = sc.nextLine();
+        System.out.print("Loai chip LED: ");
+        this.chip = sc.nextLine();
+    }
+
+    @Override
+    public void hien() {
+        super.hien();
+        System.out.println("maLED=" + maLED + ", dienAp=" + dienAp + ", kichThuoc=" + kichThuoc + ", color=" + color + ", chip=" + chip + '}');
+    }
+}
