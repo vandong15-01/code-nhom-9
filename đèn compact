@@ -1,0 +1,78 @@
+package quanlykhobongden;
+
+import java.util.Scanner;
+
+/**
+ *
+
+ */
+public class DenCompact extends BongDen{
+    private String maCompact;
+    private String loaiDui;
+    private int doSang;
+    private int nhietDoMau;
+
+    public DenCompact() {
+        super();
+    }
+
+    public DenCompact(String maCompact, String loaiDui, int doSang, int nhietDoMau, String tenBongDen, int power, int soLuong, double donGia, String ngaySX, int hanSD) {
+        super(tenBongDen, power, soLuong, donGia, ngaySX, hanSD);
+        this.maCompact = maCompact;
+        this.loaiDui = loaiDui;
+        this.doSang = doSang;
+        this.nhietDoMau = nhietDoMau;
+    }
+
+    public String getMaCompact() {
+        return maCompact;
+    }
+
+    public void setMaCompact(String maCompact) {
+        this.maCompact = maCompact;
+    }
+
+    public String getLoaiDui() {
+        return loaiDui;
+    }
+
+    public void setLoaiDui(String loaiDui) {
+        this.loaiDui = loaiDui;
+    }
+
+    public int getDoSang() {
+        return doSang;
+    }
+
+    public void setDoSang(int doSang) {
+        this.doSang = doSang;
+    }
+
+    public int getNhietDoMau() {
+        return nhietDoMau;
+    }
+
+    public void setNhietDoMau(int nhietDoMau) {
+        this.nhietDoMau = nhietDoMau;
+    }
+
+    @Override
+    public void hien() {
+        super.hien();
+        System.out.println("maCompact=" + maCompact + ", loaiDui=" + loaiDui + ", doSang=" + doSang + ", nhietDoMau=" + nhietDoMau + '}');
+    }
+
+    @Override
+    public void nhap() {
+        Scanner sc = new Scanner(System.in);
+        super.nhap();
+        System.out.print("Ma den Compact: ");
+        this.maCompact = sc.nextLine();
+        System.out.print("Loai dui: ");
+        this.loaiDui = sc.nextLine();
+        System.out.print("Do sang: ");
+        this.doSang = Integer.parseInt(sc.nextLine());
+        System.out.print("Nhiet do mau: ");
+        this.nhietDoMau = Integer.parseInt(sc.nextLine());
+    }
+}
