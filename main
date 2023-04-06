@@ -1,0 +1,79 @@
+package quanlykhobongden;
+
+import java.util.Scanner;
+
+/**
+ *
+
+ */
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        QuanLy ql = new QuanLy();
+        BongDen x;
+        int n;
+        do{
+            ql.menuChinh();
+            System.out.print("Nhap vao lua chon: ");
+            n = Integer.parseInt(sc.nextLine());
+            switch(n){
+                case 1:{
+                    x = new DenLED();
+                    ql.themDSBongDen(x);
+                    break;
+                }
+                case 2:{
+                    x = new DenCompact();
+                    ql.themDSBongDen(x);
+                    break;
+                }
+                case 3:{
+                    ql.hienThiDSBongDen();
+                    break;
+                }
+                case 4:{
+                    ql.hienThiDSDenLED();
+                    break;
+                }
+                case 5:{
+                    ql.hienThiDSDenCompact();
+                    break;
+                }
+                case 6:{
+                    ql.chinhSua();
+                    break;
+                }
+                case 7:{
+                    System.out.print("Nhap ten file muon luu: ");
+                    String fileName = sc.nextLine();
+                    ql.ghiFile(fileName);
+                    break;
+                }
+                case 8:{
+                    System.out.print("Nhap ten file muon doc: ");
+                    String fileName = sc.nextLine();
+                    ql.docFile(fileName);
+                    break;
+                }
+                case 9:{
+                    ql.SortByDate();
+                    break;
+                }
+                case 10:{
+                    ql.SortByPrice();
+                    break;
+                }
+                case 11:{
+                    ql.ThongKe1();
+                    break;
+                }
+                case 12:{
+                    ql.ThongKe2();
+                    break;
+                }
+                default:
+                    break;
+            }
+        }while (n != 0);
+    }
+}
